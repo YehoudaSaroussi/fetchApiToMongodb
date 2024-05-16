@@ -39,43 +39,32 @@ public class DataController {
 
     @GetMapping("/games")
     public List<Game> fetchAndSaveGames() {
-        String url = "https://api-nba-v1.p.rapidapi.com/games?date=2022-02-12";
-        return dataService.fetchAndSaveData(url, Game.class, gameRepository);
+        return gameRepository.findAll();
     }
 
     @GetMapping("/teams")
     public List<Team> fetchAndSaveTeams() {
-        String url = "https://api-nba-v1.p.rapidapi.com/teams";
-        return dataService.fetchAndSaveData(url, Team.class, teamRepository);
+        return teamRepository.findAll();
     }
 
     @GetMapping("/players")
     public List<Player> fetchAndSavePlayers() {
-        String url = "https://api-nba-v1.p.rapidapi.com/players?season=2021&team=1";
-        return dataService.fetchAndSaveData(url, Player.class, playerRepository);
+        return playerRepository.findAll();
     }
 
     @GetMapping("/games/statistics")
     public List<GameStat> fetchAndSaveGamesStats() {
-        String url = "https://api-nba-v1.p.rapidapi.com/games/statistics?id=10403";
-        return dataService.fetchAndSaveData(url, GameStat.class, gameStatRepository);
+        return gameStatRepository.findAll();
     }
 
     @GetMapping("/teams/statistics")
     public List<TeamStat> fetchAndSaveTeamStats() {
-        String url = "https://api-nba-v1.p.rapidapi.com/teams/statistics?id=1&season=2020";
-        return dataService.fetchAndSaveData(url, TeamStat.class, teamStatRepository);
+        return teamStatRepository.findAll();
     }
 
     @GetMapping("/players/statistics")
     public List<PlayerStat> fetchAndSavePlayerStats() {
-        String url = "https://api-nba-v1.p.rapidapi.com/players/statistics?game=8133";
-        return dataService.fetchAndSaveData(url, PlayerStat.class, playerStatRepository);
-    }
-
-    @GetMapping("player1")
-    public Player getPlayer1() {
-        return playerRepository.findById("588").get();
+        return playerStatRepository.findAll();
     }
 
 }

@@ -26,7 +26,12 @@ public class DataService {
         this.objectMapper = objectMapper;
     }
 
-    public <T> List<T> fetchDataFromAPI(String url, HttpHeaders headers, Class<T> responseType) {
+    public <T> List<T> fetchDataFromAPI(String url, Class<T> responseType) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-RapidAPI-Key", RapidAPI_Key);
+        headers.set("X-RapidAPI-Host", RapidAPI_Host);
+
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -58,11 +63,7 @@ public class DataService {
     public <T, ID> List<T> fetchAndSaveData(String url, Class<T> responseType,
             MongoRepository<T, ID> repository) {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-RapidAPI-Key", RapidAPI_Key);
-        headers.set("X-RapidAPI-Host", RapidAPI_Host);
-
-        List<T> data = fetchDataFromAPI(url, headers, responseType);
+        List<T> data = fetchDataFromAPI(url, responseType);
 
         if (!data.isEmpty()) {
 
